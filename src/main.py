@@ -1,6 +1,6 @@
 # src/main.py
 
-from src.stereo import StereoCamera
+from stereo import StereoCamera
 
 stereo = StereoCamera()
 

@@ -8,14 +8,21 @@ import cv2
 import numpy as np
 from pathlib import Path
 import time
-from src.constants import (
+from constants import (
     LEFT_STREAM,
     RIGHT_STREAM,
     FALLBACK_VIDEO,
     BASELINE_CM,
     FOCAL_LENGTH,
     THREAT_DISTANCE,
+    SCREEN_WIDTH,
+    SCREEN_HEIGHT,
+    MIN_CONFIDENCE,
 )
+
+from detector import GooseDetector
+
+detector = GooseDetector(conf=MIN_CONFIDENCE)  # чуть ниже conf для дальних птиц
 
 
 class StereoCamera:
@@ -248,21 +255,29 @@ if __name__ == "__main__":
 
         if frameL is not None:
             frame_count += 1
-            # Масштабируем для показа
-            displayL = cv2.resize(frameL, (640, 480))
+
+            # YOLO ДЕТЕКТОР
+            birds = detector.detect(frameL)
+            displayL = detector.draw_birds(frameL, birds, color=(0, 255, 0))
+
+            # Масштабируем для показа (используем уже аннотированный displayL) тут тормозит?
+            displayL = cv2.resize(displayL, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
             # Depth если стерео
             if frameR is not None and stereo.calibrated:
                 depth = stereo.get_depth(frameL, frameR)
                 depth_vis = cv2.normalize(depth, None, 0, 255, cv2.NORM_MINMAX)
-                depth_vis = cv2.resize(depth_vis, (640, 480))
+                depth_vis = cv2.resize(depth_vis, (SCREEN_WIDTH, SCREEN_HEIGHT))
                 displayL = np.hstack([displayL, depth_vis])
 
-            cv2.imshow("Гусиный Страж", displayL)
+            cv2.imshow("Гусиный Страж 🦢🟢", displayL)
 
             # FPS
-            if time.time() - fps_time > 2.0:
-                print(f"📹 FPS: {frame_count/2:.1f} | Mode: {mode}")
+            if time.time() - fps_time > 5.0:
+                real_fps = frame_count / (time.time() - fps_time)  # ← РЕАЛЬНОЕ время!
+                print(
+                    f"📹 FPS: {real_fps:.1f} | Mode: {mode} | Объекты в кадре: {len(birds)}"
+                )
                 fps_time = time.time()
                 frame_count = 0
 

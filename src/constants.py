@@ -31,9 +31,9 @@ RTSP_PORT = 8080
 # Fallback при отвале камеры
 FALLBACK_VIDEO = RESOURCES_PATH / "images" / "test_geese.mp4"
 
-LEFT_STREAM = 0  # Веб-камера ноутбука
-RIGHT_STREAM = FALLBACK_VIDEO
-# RIGHT_STREAM = None
+LEFT_STREAM = FALLBACK_VIDEO  # Веб-камера ноутбука
+RIGHT_STREAM = None
+# RIGHT_STREAM = 0 # Веб-камера ноутбука
 # LEFT_STREAM = f"rtsp://{PHONE_LEFT_IP}:{RTSP_PORT}/video"
 # RIGHT_STREAM = f"rtsp://{PHONE_RIGHT_IP}:{RTSP_PORT}/video"
 
@@ -61,7 +61,8 @@ LASER_PIN = 11
 
 # YOLO
 MIN_CONFIDENCE = 0.6
-GOOSE_CLASS_ID = 15  # "bird" в COCO (дообучить на гусях)
+GOOSE_CLASS_ID = 15  # "bird" в COCO (дообучить на гусях) не совпадает
+DETECT_SIZE = 320  # влияет на скорость распознавания в детекторе
 
 # Threat scoring
 MAX_THREAT_SCORE = 1.0
@@ -75,5 +76,5 @@ BASELINE_CM = 30.0
 FOCAL_LENGTH = 800
 
 # GUI
-SCREEN_WIDTH = 1024
-SCREEN_HEIGHT = 768
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 480
