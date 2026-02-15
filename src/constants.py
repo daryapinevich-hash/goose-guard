@@ -28,9 +28,12 @@ PHONE_LEFT_IP = "192.168.1.10"
 PHONE_RIGHT_IP = "192.168.1.11"
 RTSP_PORT = 8080
 
+# Fallback при отвале камеры
+FALLBACK_VIDEO = RESOURCES_PATH / "images" / "test_geese.mp4"
 
 LEFT_STREAM = 0  # Веб-камера ноутбука
-RIGHT_STREAM = None
+RIGHT_STREAM = FALLBACK_VIDEO
+# RIGHT_STREAM = None
 # LEFT_STREAM = f"rtsp://{PHONE_LEFT_IP}:{RTSP_PORT}/video"
 # RIGHT_STREAM = f"rtsp://{PHONE_RIGHT_IP}:{RTSP_PORT}/video"
 
@@ -44,9 +47,6 @@ FALLBACK_MODES = {
     "right_down": "mono_left",  # Правая сдохла
     "both_down": "video_fallback",  # Оба мертвы
 }
-
-# Fallback при отвале камеры
-FALLBACK_VIDEO = RESOURCES_PATH / "images" / "test_geese.mp4"
 
 # Аудио параметры
 SAMPLE_RATE = 44100

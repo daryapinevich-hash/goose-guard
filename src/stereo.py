@@ -108,27 +108,18 @@ class StereoCamera:
             return frame, None, mode if ret else None
 
         else:  # both_down
-            frame = None  # ← ДОБАВЬ ЭТО!
-
             if self.fallback_cap is None:
-                print("📹 Initializing fallback VIDEO...")
+                print("📹 Starting fallback VIDEO...")
                 self.fallback_cap = cv2.VideoCapture(str(FALLBACK_VIDEO))
+                self.fallback_frame_pos = 0
 
-            if self.fallback_cap.isOpened():
-                self.fallback_cap.set(cv2.CAP_PROP_POS_FRAMES, self.fallback_pos % 1000)
+            # ПРОСТО ЧИТАЕМ ПО ПОРЯДКУ (без seek!)
+            ret, frame = self.fallback_cap.read()
+
+            if not ret or frame is None:
+                # Конец → начало
+                self.fallback_cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
                 ret, frame = self.fallback_cap.read()
-                self.fallback_pos += 1
-
-                if not ret or frame is None:
-                    # Конец видео — сбрасываем
-                    self.fallback_cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                    self.fallback_pos = 0
-                    ret, frame = self.fallback_cap.read()
-                    self.fallback_pos = 1
-
-            if frame is None:  # Если видео не открылось
-                print("❌ Fallback failed → черный экран")
-                frame = np.zeros((480, 640, 3), dtype=np.uint8)
 
             return frame, None, mode
 
