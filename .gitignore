@@ -1,0 +1,64 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+wheels/
+*.egg-info
+
+# Сборка PyInstaller
+dist/
+build/
+*.spec
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.iml
+*.ipr
+*.iws
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Database
+*.db
+*.sqlite3
+data/
+
+# Exports
+data/exports/*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Testing
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Ruff
+.ruff_cache/
+
+# Black
+.blackd
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
