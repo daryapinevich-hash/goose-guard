@@ -1,3 +1,16 @@
+# src/audio.py
+
+"""
+audio.py - Звуковая локализация гусей для Goose Guard v1.0
+
+TDoA (Time Difference of Arrival) на 4 микрофонах:
+- Детекция гусиных криков 1-4кГц
+- Азимутальная локализация ±10°
+- Предсказание появления ДО видео
+
+> volume > 0.1 = НАВЕДЕНИЕ турели
+"""
+
 import pyaudio
 import numpy as np
 from constants import SAMPLE_RATE, GOOSE_FREQ_MIN, GOOSE_FREQ_MAX
