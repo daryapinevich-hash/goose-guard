@@ -22,7 +22,7 @@ from constants import (
 
 from detector import GooseDetector
 
-detector = GooseDetector(conf=MIN_CONFIDENCE)  # чуть ниже conf для дальних птиц
+detector = GooseDetector(conf=MIN_CONFIDENCE)
 
 
 class StereoCamera:

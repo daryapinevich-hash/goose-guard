@@ -21,7 +21,7 @@ SOUNDS_PATH = RESOURCES_PATH / "sounds"
 IMAGES_PATH = RESOURCES_PATH / "images"
 
 # Пути к конкретным файлам
-ALARM_SOUND_PATH = SOUNDS_PATH / "Sound_14909.mp3"
+ALARM_SOUND_PATH = SOUNDS_PATH / "Sound_14909.wav"
 
 # Параметры телефонов (RTSP по Wi-Fi)
 PHONE_LEFT_IP = "192.168.1.10"
@@ -60,8 +60,8 @@ SERVO_TILT_PIN = 10
 LASER_PIN = 11
 
 # YOLO
-MIN_CONFIDENCE = 0.6
-GOOSE_CLASS_ID = 15  # "bird" в COCO (дообучить на гусях) не совпадает
+MIN_CONFIDENCE = 0.5
+GOOSE_CLASS_ID = 15  # "bird" в COCO (дообучить на гусях) номер не совпадает
 DETECT_SIZE = 320  # влияет на скорость распознавания в детекторе
 
 # Threat scoring
